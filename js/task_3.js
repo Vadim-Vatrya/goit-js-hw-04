@@ -1,45 +1,40 @@
-const findBestEmployee = function (employees) {
-  ("use strict");
+// Callback функция для получения одного вычисляемого значения массива
+// Функции add, sub и mult принимают два параметра - accum и element, возвращает число - сумму, разность или произведение параметров.
+// Дополни тело функции reduceArray строкой присвоения accum вызова функции cb.Функция reduceArray должна будет подсчитать сумму или
+// разность или произведение всех элементов массива в зависимости от того какая именно из трех функция(add, mult, sub) будет передана в качестве cb.
 
-  // Write code under this line
-  const keys = Object.keys(employees);
-  const values = Object.values(employees);
 
-  let maxTasks = 0;
-  let best = "";
+const add = (accum, element) => accum + element;
+const mult = (accum, element) => accum * element;
+const sub = (accum, element) => accum - element;
 
-  for (const key of keys) {
-    if (employees[key] > maxTasks) {
-      maxTasks = employees[key];
-      best = key;
-    }
+function reduceArray(array, cb, initial) {
+  'use strict';
+  let i;
+  let accum;
+  if(arguments.length >= 3) {
+    accum = initial;
+    i = 0;
   }
+  if(arguments.length === 2) {
+    accum = array[0];
+    i = 1;
+  }
+  for(i; i < array.length; i += 1) {
+    const element = array[i];
+    // Write code under this line
+     accum = cb(accum, element);
+  }
+  return accum;
+}
 
-  return best;
-};
+const arr  = [1,2,3,4,5];
 
-// Объекты и ожидаемый результат
-const developers = {
-  ann: 29,
-  david: 35,
-  helen: 1,
-  lorence: 99,
-};
-console.log(findBestEmployee(developers));
-// 'lorence'
+//console.log(reduceArray(arr, add)); // 15
+//console.log(reduceArray(arr, add, 10)); // 25
 
-const supports = {
-  poly: 12,
-  mango: 17,
-  ajax: 4,
-};
-console.log(findBestEmployee(supports));
-// 'mango'
+//console.log(reduceArray(arr, mult)); // 120
+//console.log(reduceArray(arr, mult, 10)); // 1200
 
-const sellers = {
-  lux: 147,
-  david: 21,
-  kiwi: 19,
-  chelsy: 38,
-};
-console.log(findBestEmployee(sellers));
+//console.log(reduceArray(arr, sub)); // -13
+//console.log(reduceArray(arr, sub, 10)); // -5
